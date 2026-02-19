@@ -1,0 +1,8 @@
+name = "hamberger-backend"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hamberger-db"
+database_id = "39e9813f-5fab-494c-97b9-79d692fa2b91"
