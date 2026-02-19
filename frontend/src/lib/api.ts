@@ -2,7 +2,7 @@
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000";
 
-function authHeaders(token?: string) {
+function authHeaders(token?: string): Record<string, string> {
     return token ? { Authorization: `Bearer ${token}` } : {};
 }
 

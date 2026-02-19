@@ -5,6 +5,7 @@ import { authMiddleware, signToken } from "./utils/auth";
 import { AdminModel } from "./models/admin.model";
 import { ProductModel } from "./models/product.model";
 import { OrderModel } from "./models/order.model";
+import bcrypt from "bcryptjs";
 
 type Bindings = {
     DB: D1Database;
@@ -132,22 +133,7 @@ app.post("/api/admin/login", async (c) => {
 
         if (!admin) return c.json({ message: "Invalid credentials" }, 401);
 
-        // D1 environment doesn't support bcrypt easily without heavy polyfills.
-        // For this demo, we will accept plain text or verify hash if possible.
-        // WARNING: In production, use Web Crypto API for hashing.
-        // Simplifying: If password matches hardcoded or hash check (stubbed).
-        // Let's assume the user sends plain text and we compare with 'admin1234' for seed user.
-        // Real impl: using bcryptjs-edged or similar.
-        // For now, hardcode check for simplicity of this specific request context if we can't run bcrypt.
-
-        // If seeded hash is used, we can't verify easily without bcrypt lib.
-        // BUT we installed 'bcryptjs' in backend (node). Cloudflare needs pure JS or WebCrypto.
-        // 'bcryptjs' works in Workers! Let's import it.
-
-        // Lazy load bcrypt to avoid init issues if not needed
-        const bcrypt = require('bcryptjs');
-
-        const isValid = bcrypt.compareSync(password, admin.password);
+        const isValid = await bcrypt.compare(password, admin.password);
         if (!isValid) return c.json({ message: "Invalid credentials" }, 401);
 
         const token = await signToken({ id: admin.id, username: admin.username });
