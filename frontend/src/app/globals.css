@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --amber: #f59e0b;
+  --amber-dark: #d97706;
+  --brown: #78350f;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fafaf8;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-xl transition-all duration-200 active:scale-95;
+  }
+  .btn-ghost {
+    @apply border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-xl transition-all duration-200;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden;
+  }
+  .badge-pending {
+    @apply bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .badge-cooking {
+    @apply bg-orange-100 text-orange-800 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .badge-completed {
+    @apply bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+}
