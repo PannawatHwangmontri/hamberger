@@ -142,6 +142,9 @@ export default function AdminProductsPage() {
                                     />
                                 </div>
                             ))}
+                            {form.image_url && (
+                                <img src={form.image_url} alt="preview" className="w-full h-36 object-cover rounded-xl border border-gray-200" onError={(e) => (e.currentTarget.style.display = "none")} />
+                            )}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">สถานะ</label>
                                 <select

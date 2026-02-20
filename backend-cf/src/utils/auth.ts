@@ -4,13 +4,16 @@ import { sign, verify } from "hono/jwt";
 const JWT_SECRET = "hamberger-secret-key-change-me-in-prod";
 
 export async function signToken(payload: any) {
-    return await sign(payload, JWT_SECRET);
+    // Add expiry: 7 days from now (Hono v4 jwt verify requires exp)
+    const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
+    return await sign({ ...payload, exp }, JWT_SECRET);
 }
 
 export async function verifyToken(token: string) {
     try {
-        return await verify(token, JWT_SECRET);
+        return await verify(token, JWT_SECRET, "HS256");
     } catch (e) {
+        console.error("JWT verify failed:", e);
         return null;
     }
 }
@@ -31,3 +34,4 @@ export async function authMiddleware(c: Context, next: Next) {
     c.set("user", payload);
     await next();
 }
+

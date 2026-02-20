@@ -89,7 +89,10 @@ export class OrderModel {
             .run();
         const orderId = orderRes.meta.last_row_id;
 
-        // 3. Insert Items (Batch)
+        // 3. Insert Items (Batch) — guard against empty array (D1 throws on batch([]))
+        if (finalItems.length === 0) {
+            throw new Error("ไม่พบสินค้าที่เลือก กรุณาตรวจสอบรายการอีกครั้ง");
+        }
         const stmts = finalItems.map((item) =>
             this.db
                 .prepare(

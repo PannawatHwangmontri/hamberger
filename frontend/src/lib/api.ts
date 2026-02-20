@@ -137,3 +137,18 @@ export async function adminLogin(username: string, password: string): Promise<st
     const data = await res.json();
     return data.token as string;
 }
+export async function uploadImage(file: File, token: string): Promise<string> {
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await fetch(`${BASE}/api/upload`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+    });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error ?? `Upload failed: ${res.status}`);
+    }
+    const data = await res.json();
+    return data.url as string;
+}
