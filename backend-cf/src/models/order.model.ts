@@ -62,11 +62,6 @@ export class OrderModel {
     }
 
     async create(table_number: number, items: OrderItem[]) {
-        // D1 supports batching but not full transactions across async calls easily in all environments
-        // But we can use batch() for atomic operations if we prep prepared statements.
-        // NOTE: For simple logic, we will insert order first then items.
-        // To strictly use transaction, would use `db.batch([...])`.
-
         // 1. Calculate total (fetch prices)
         let total = 0;
         const finalItems = [];
@@ -78,31 +73,43 @@ export class OrderModel {
                 .first();
             if (p) {
                 total += p.price * item.quantity;
-                finalItems.push({ ...item, price: p.price, name: p.name }); // Keep metadata
+                finalItems.push({ ...item, price: p.price, name: p.name });
             }
         }
 
-        // 2. Insert Order
-        const orderRes = await this.db
-            .prepare("INSERT INTO orders (table_number, total_price) VALUES (?, ?)")
-            .bind(table_number, total)
-            .run();
-        const orderId = orderRes.meta.last_row_id;
-
-        // 3. Insert Items (Batch) — guard against empty array (D1 throws on batch([]))
         if (finalItems.length === 0) {
             throw new Error("ไม่พบสินค้าที่เลือก กรุณาตรวจสอบรายการอีกครั้ง");
         }
+
+        // 2. Find the smallest available (reusable) order ID
+        //    Look for a gap: smallest positive integer not already in the orders table
+        const gapRow: any = await this.db
+            .prepare(`
+                SELECT MIN(t.id + 1) AS next_id
+                FROM (SELECT 0 AS id UNION ALL SELECT id FROM orders) t
+                WHERE (t.id + 1) NOT IN (SELECT id FROM orders)
+            `)
+            .first();
+
+        const nextId: number = gapRow?.next_id ?? 1;
+
+        // 3. Insert Order with explicit ID so gaps are filled
+        await this.db
+            .prepare("INSERT INTO orders (id, table_number, total_price) VALUES (?, ?, ?)")
+            .bind(nextId, table_number, total)
+            .run();
+
+        // 4. Insert Items (Batch)
         const stmts = finalItems.map((item) =>
             this.db
                 .prepare(
                     "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)"
                 )
-                .bind(orderId, item.product_id, item.quantity, item.price)
+                .bind(nextId, item.product_id, item.quantity, item.price)
         );
         await this.db.batch(stmts);
 
-        return this.getById(orderId);
+        return this.getById(nextId);
     }
 
     async updateStatus(id: number, status: string) {
