@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { adminLogin } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AdminLoginPage() {
     const [username, setUsername] = useState("");
@@ -33,6 +34,11 @@ export default function AdminLoginPage() {
             <div className="absolute bottom-[-60px] left-[-60px] w-60 h-60 bg-peach-700/40 rounded-full blur-3xl pointer-events-none" />
 
             <div className="glass-card bg-white/90 w-full max-w-sm p-8 relative z-10 animate-slide-up">
+                <div className="mb-6">
+                    <Link href="/" className="inline-flex items-center gap-1.5 text-peach-500 hover:text-peach-700 text-sm font-bold transition-colors">
+                        ← กลับหน้าหลัก
+                    </Link>
+                </div>
                 <div className="text-center mb-8">
                     <div className="text-6xl mb-3 animate-float">👨‍💼</div>
                     <h1 className="text-2xl font-black text-peach-800">แอดมิน</h1>
