@@ -23,9 +23,13 @@ export default function UserMenuPage() {
             {/* Navbar */}
             <nav className="bg-white/90 backdrop-blur-md shadow-peach sticky top-0 z-40 border-b border-peach-100">
                 <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 font-black text-xl text-peach-700 hover:text-peach-600 transition-colors">
-                        🍔 <span>Hamberger</span>
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link href="/" className="flex items-center gap-1.5 text-peach-500 hover:text-peach-700 text-sm font-bold transition-colors">
+                            ← กลับหน้าล็อคอิน
+                        </Link>
+                        <span className="text-peach-200">|</span>
+                        <span className="font-black text-xl text-peach-700">🍔 Hamberger</span>
+                    </div>
                     <div className="flex items-center gap-3">
                         <Link href="/user/status" className="btn-ghost text-sm">
                             🔍 เช็คออเดอร์
