@@ -18,7 +18,6 @@ export default function AdminProductsPage() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
 
-    // Auth guard
     useEffect(() => {
         const t = localStorage.getItem("admin_token");
         if (!t) { router.push("/admin/login"); return; }
@@ -60,14 +59,14 @@ export default function AdminProductsPage() {
     function logout() { localStorage.removeItem("admin_token"); router.push("/admin/login"); }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Top Bar */}
-            <nav className="bg-white shadow-sm border-b">
+        <div className="min-h-screen bg-peach-50">
+            {/* Navbar */}
+            <nav className="bg-white shadow-peach border-b border-peach-100">
                 <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <span className="font-extrabold text-xl text-amber-700">🍔 Admin</span>
-                        <Link href="/admin/products" className="text-sm font-medium text-amber-600 border-b-2 border-amber-500 pb-0.5">สินค้า</Link>
-                        <Link href="/admin/orders" className="text-sm font-medium text-gray-500 hover:text-amber-600">ออเดอร์</Link>
+                    <div className="flex items-center gap-5">
+                        <span className="font-black text-xl text-peach-700">🍔 Admin</span>
+                        <Link href="/admin/products" className="nav-active">สินค้า</Link>
+                        <Link href="/admin/orders" className="nav-link">ออเดอร์</Link>
                     </div>
                     <button onClick={logout} className="btn-ghost text-sm">ออกจากระบบ</button>
                 </div>
@@ -75,33 +74,40 @@ export default function AdminProductsPage() {
 
             <div className="max-w-6xl mx-auto px-4 py-8">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold text-gray-800">จัดการสินค้า</h1>
+                    <h1 className="text-2xl font-black text-peach-800">จัดการสินค้า</h1>
                     <button onClick={openAdd} className="btn-primary">+ เพิ่มสินค้า</button>
                 </div>
 
-                {error && <p className="text-red-500 mb-4 bg-red-50 px-4 py-2 rounded-xl">{error}</p>}
+                {error && (
+                    <p className="text-red-500 mb-4 bg-red-50 border border-red-100 px-4 py-2.5 rounded-2xl text-sm font-semibold">
+                        ⚠️ {error}
+                    </p>
+                )}
 
                 {loading ? (
-                    <p className="text-gray-400 text-center py-16">กำลังโหลด...</p>
+                    <div className="text-center py-16">
+                        <div className="text-4xl animate-float mb-3">🍔</div>
+                        <p className="text-peach-400 font-semibold">กำลังโหลด...</p>
+                    </div>
                 ) : (
                     <div className="card overflow-x-auto">
                         <table className="w-full text-sm">
-                            <thead className="bg-gray-50 border-b">
+                            <thead className="bg-peach-50 border-b border-peach-100">
                                 <tr>
                                     {["ID", "ชื่อสินค้า", "ราคา", "สถานะ", "จัดการ"].map((h) => (
-                                        <th key={h} className="text-left px-4 py-3 font-semibold text-gray-600">{h}</th>
+                                        <th key={h} className="text-left px-4 py-3 font-black text-peach-700">{h}</th>
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y">
+                            <tbody className="divide-y divide-peach-50">
                                 {products.map((p) => (
-                                    <tr key={p.id} className="hover:bg-amber-50 transition-colors">
-                                        <td className="px-4 py-3 text-gray-400">#{p.id}</td>
+                                    <tr key={p.id} className="hover:bg-peach-50 transition-colors">
+                                        <td className="px-4 py-3 text-peach-400 font-semibold">#{p.id}</td>
                                         <td className="px-4 py-3">
-                                            <p className="font-semibold text-gray-800">{p.name}</p>
-                                            <p className="text-gray-400 text-xs truncate max-w-xs">{p.description}</p>
+                                            <p className="font-black text-peach-800">{p.name}</p>
+                                            <p className="text-peach-400 text-xs truncate max-w-xs font-medium">{p.description}</p>
                                         </td>
-                                        <td className="px-4 py-3 font-bold text-amber-600">฿{p.price}</td>
+                                        <td className="px-4 py-3 font-black text-peach-600">฿{p.price}</td>
                                         <td className="px-4 py-3">
                                             <span className={p.is_available ? "badge-completed" : "badge-pending"}>
                                                 {p.is_available ? "พร้อมขาย" : "หมด"}
@@ -115,16 +121,20 @@ export default function AdminProductsPage() {
                                 ))}
                             </tbody>
                         </table>
-                        {products.length === 0 && <p className="text-center text-gray-400 py-10">ยังไม่มีสินค้า</p>}
+                        {products.length === 0 && (
+                            <p className="text-center text-peach-400 py-10 font-semibold">ยังไม่มีสินค้า</p>
+                        )}
                     </div>
                 )}
             </div>
 
             {/* Modal */}
             {showForm && (
-                <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
-                        <h2 className="text-xl font-bold mb-5">{editing ? "แก้ไขสินค้า" : "เพิ่มสินค้าใหม่"}</h2>
+                <div className="fixed inset-0 bg-peach-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+                    <div className="bg-white rounded-3xl shadow-peach-lg w-full max-w-md p-6 animate-slide-up">
+                        <h2 className="text-xl font-black text-peach-800 mb-5">
+                            {editing ? "✏️ แก้ไขสินค้า" : "🆕 เพิ่มสินค้าใหม่"}
+                        </h2>
                         <div className="space-y-3">
                             {[
                                 { label: "ชื่อสินค้า*", key: "name", type: "text" },
@@ -133,35 +143,35 @@ export default function AdminProductsPage() {
                                 { label: "URL รูปภาพ", key: "image_url", type: "text" },
                             ].map(({ label, key, type }) => (
                                 <div key={key}>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+                                    <label className="block text-sm font-bold text-peach-700 mb-1">{label}</label>
                                     <input
                                         type={type}
                                         value={form[key as keyof typeof form]}
                                         onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
-                                        className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:border-amber-400"
+                                        className="input-primary"
                                     />
                                 </div>
                             ))}
                             {form.image_url && (
-                                <img src={form.image_url} alt="preview" className="w-full h-36 object-cover rounded-xl border border-gray-200" onError={(e) => (e.currentTarget.style.display = "none")} />
+                                <img src={form.image_url} alt="preview" className="w-full h-36 object-cover rounded-2xl border border-peach-100" onError={(e) => (e.currentTarget.style.display = "none")} />
                             )}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">สถานะ</label>
+                                <label className="block text-sm font-bold text-peach-700 mb-1">สถานะ</label>
                                 <select
                                     value={form.is_available}
                                     onChange={(e) => setForm((f) => ({ ...f, is_available: e.target.value }))}
-                                    className="w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:border-amber-400"
+                                    className="input-primary"
                                 >
                                     <option value="1">พร้อมขาย</option>
                                     <option value="0">หมด/ปิด</option>
                                 </select>
                             </div>
                         </div>
-                        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+                        {error && <p className="text-red-500 text-sm mt-3 font-semibold">⚠️ {error}</p>}
                         <div className="flex gap-3 mt-6">
                             <button onClick={() => setShowForm(false)} className="flex-1 btn-ghost">ยกเลิก</button>
-                            <button onClick={handleSave} disabled={saving} className="flex-1 btn-primary disabled:opacity-60">
-                                {saving ? "กำลังบันทึก..." : "บันทึก"}
+                            <button onClick={handleSave} disabled={saving} className="flex-1 btn-primary justify-center disabled:opacity-60">
+                                {saving ? "⏳ กำลังบันทึก..." : "💾 บันทึก"}
                             </button>
                         </div>
                     </div>

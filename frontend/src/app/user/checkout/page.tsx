@@ -39,39 +39,41 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-amber-50 p-4">
-            <div className="max-w-lg mx-auto">
-                <Link href="/user" className="text-amber-600 hover:underline text-sm mb-4 inline-block">← กลับไปเมนู</Link>
-                <h1 className="text-2xl font-bold text-amber-800 mb-6">📋 สรุปออเดอร์</h1>
+        <div className="min-h-screen bg-peach-50 p-4">
+            <div className="max-w-lg mx-auto pt-6">
+                <Link href="/user" className="text-peach-600 hover:text-peach-700 text-sm mb-5 inline-flex items-center gap-1 font-semibold transition-colors">
+                    ← กลับไปเมนู
+                </Link>
+                <h1 className="text-2xl font-black text-peach-800 mb-6">📋 สรุปออเดอร์</h1>
 
                 {items.length === 0 ? (
-                    <div className="card p-8 text-center text-gray-400">
+                    <div className="card p-10 text-center">
                         <p className="text-5xl mb-3">🛒</p>
-                        <p>ตะกร้าว่างเปล่า</p>
-                        <Link href="/user" className="btn-primary mt-4 inline-block">เลือกเมนู</Link>
+                        <p className="text-peach-500 font-semibold mb-4">ตะกร้าว่างเปล่า</p>
+                        <Link href="/user" className="btn-primary inline-flex">เลือกเมนู</Link>
                     </div>
                 ) : (
                     <>
                         {/* Order Items */}
-                        <div className="card divide-y mb-5">
+                        <div className="card divide-y divide-peach-100 mb-5">
                             {items.map((i) => (
-                                <div key={i.product.id} className="flex justify-between px-5 py-3">
+                                <div key={i.product.id} className="flex justify-between px-5 py-3.5">
                                     <div>
-                                        <span className="font-semibold text-gray-800">{i.product.name}</span>
-                                        <span className="text-gray-400 text-sm ml-2">× {i.quantity}</span>
+                                        <span className="font-bold text-peach-800">{i.product.name}</span>
+                                        <span className="text-peach-400 text-sm ml-2 font-medium">× {i.quantity}</span>
                                     </div>
-                                    <span className="font-bold text-amber-600">฿{i.product.price * i.quantity}</span>
+                                    <span className="font-black text-peach-600">฿{i.product.price * i.quantity}</span>
                                 </div>
                             ))}
-                            <div className="flex justify-between px-5 py-4 font-bold text-lg">
-                                <span>รวม</span>
-                                <span className="text-amber-600">฿{total}</span>
+                            <div className="flex justify-between px-5 py-4 font-black text-lg bg-peach-50">
+                                <span className="text-peach-800">รวม</span>
+                                <span className="text-peach-600">฿{total}</span>
                             </div>
                         </div>
 
                         {/* Table number */}
                         <div className="card p-5 mb-5">
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            <label className="block text-sm font-bold text-peach-700 mb-2">
                                 🪑 หมายเลขโต๊ะ
                             </label>
                             <input
@@ -80,18 +82,22 @@ export default function CheckoutPage() {
                                 value={tableNumber}
                                 onChange={(e) => setTableNumber(e.target.value)}
                                 placeholder="เช่น 5"
-                                className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-lg focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-100"
+                                className="input-primary text-lg"
                             />
                         </div>
 
-                        {error && <p className="text-red-500 text-sm mb-4 bg-red-50 px-4 py-2 rounded-xl">{error}</p>}
+                        {error && (
+                            <p className="text-red-500 text-sm mb-4 bg-red-50 border border-red-100 px-4 py-2.5 rounded-2xl font-semibold">
+                                ⚠️ {error}
+                            </p>
+                        )}
 
                         <button
                             onClick={handleOrder}
                             disabled={loading}
-                            className="w-full btn-primary text-lg py-4 disabled:opacity-60"
+                            className="w-full btn-primary justify-center text-lg py-4 disabled:opacity-60"
                         >
-                            {loading ? "กำลังส่งออเดอร์..." : "✅ ยืนยันออเดอร์"}
+                            {loading ? "⏳ กำลังส่งออเดอร์..." : "✅ ยืนยันออเดอร์"}
                         </button>
                     </>
                 )}
