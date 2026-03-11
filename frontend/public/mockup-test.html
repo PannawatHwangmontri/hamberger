@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🍔 Hamberger — Mockup Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --p50: #fff8f5; --p100: #ffe8da; --p200: #ffd4bc;
+    --p300: #ffb899; --p400: #ff9671; --p500: #f97048;
+    --p600: #e05233; --p700: #bf3a20; --p800: #8f2510;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #f5f0ec; color: #1a1a1a; }
+
+  /* Header */
+  .header { background: var(--p700); color: white; padding: 32px 24px; text-align: center; }
+  .header h1 { font-size: 2rem; font-weight: 900; margin-bottom: 6px; }
+  .header p { font-size: 0.95rem; opacity: 0.8; }
+  .badge-row { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .badge { background: white/20; border: 1px solid rgba(255,255,255,0.4); color: white;
+    padding: 4px 14px; border-radius: 99px; font-size: 0.8rem; font-weight: 700; }
+
+  /* Section */
+  .section { padding: 40px 24px; max-width: 1400px; margin: 0 auto; }
+  .section-title { font-size: 1.1rem; font-weight: 900; color: var(--p700);
+    border-left: 4px solid var(--p500); padding-left: 12px; margin-bottom: 24px; }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+  /* Screen card */
+  .screen-card { background: white; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(249,112,72,0.12); border: 1px solid var(--p100); }
+  .screen-label { background: var(--p50); border-bottom: 1px solid var(--p100);
+    padding: 10px 16px; font-size: 0.82rem; font-weight: 800; color: var(--p700);
+    display: flex; align-items: center; gap: 8px; }
+  .screen-label .dot { width: 8px; height: 8px; background: var(--p500); border-radius: 50%; }
+  .screen-body { padding: 0; }
+  .screen-iframe { width: 100%; height: 480px; border: none; display: block; }
+
+  /* Color palette */
+  .palette { display: flex; gap: 0; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 40px; }
+  .swatch { flex: 1; height: 80px; display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end; padding: 8px 4px; font-size: 0.65rem; font-weight: 700; color: white; }
+
+  /* Test checklist */
+  .checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .check-item { background: white; border-radius: 14px; padding: 14px 16px;
+    border: 1px solid var(--p100); display: flex; gap: 10px; align-items: flex-start; }
+  .check-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .check-title { font-weight: 800; font-size: 0.88rem; color: var(--p800); }
+  .check-desc { font-size: 0.78rem; color: #888; margin-top: 2px; }
+  .status-pass { color: #16a34a; font-weight: 800; font-size: 0.75rem; margin-top: 4px; }
+  .status-manual { color: var(--p600); font-weight: 800; font-size: 0.75rem; margin-top: 4px; }
+
+  /* Links bar */
+  .links-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+  .page-link { background: white; border: 2px solid var(--p200); color: var(--p700);
+    padding: 8px 18px; border-radius: 99px; font-size: 0.85rem; font-weight: 800;
+    text-decoration: none; transition: all 0.2s; }
+  .page-link:hover { background: var(--p500); color: white; border-color: var(--p500); }
+
+  footer { text-align: center; padding: 32px; color: #aaa; font-size: 0.82rem; background: white; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>🍔 Hamberger — Mockup Test</h1>
+  <p>UI Redesign · Warm Peach Theme <code>#FFE8DA</code></p>
+  <div class="badge-row">
+    <span class="badge">Next.js 14</span>
+    <span class="badge">Tailwind CSS</span>
+    <span class="badge">Nunito Font</span>
+    <span class="badge">Cloudflare D1</span>
+    <span class="badge">Branch: update-readme</span>
+  </div>
+</div>
+
+<div class="section">
+
+  <!-- Color palette -->
+  <p class="section-title">🎨 Color Palette</p>
+  <div class="palette">
+    <div class="swatch" style="background:#fff8f5; color: #bf3a20;">50</div>
+    <div class="swatch" style="background:#ffe8da; color: #bf3a20;">100</div>
+    <div class="swatch" style="background:#ffd4bc;">200</div>
+    <div class="swatch" style="background:#ffb899;">300</div>
+    <div class="swatch" style="background:#ff9671;">400</div>
+    <div class="swatch" style="background:#f97048;">500</div>
+    <div class="swatch" style="background:#e05233;">600</div>
+    <div class="swatch" style="background:#bf3a20;">700</div>
+    <div class="swatch" style="background:#8f2510;">800</div>
+  </div>
+
+  <!-- Quick links -->
+  <p class="section-title">🔗 หน้าทั้งหมด</p>
+  <div class="links-bar">
+    <a class="page-link" href="http://localhost:3000" target="_blank">🏠 Landing</a>
+    <a class="page-link" href="http://localhost:3000/user" target="_blank">🍔 เมนู (User)</a>
+    <a class="page-link" href="http://localhost:3000/user/checkout" target="_blank">📋 Checkout</a>
+    <a class="page-link" href="http://localhost:3000/user/status" target="_blank">🔍 Status</a>
+    <a class="page-link" href="http://localhost:3000/admin/login" target="_blank">🔐 Admin Login</a>
+    <a class="page-link" href="http://localhost:3000/admin/products" target="_blank">📦 Products</a>
+    <a class="page-link" href="http://localhost:3000/admin/orders" target="_blank">🗒 Orders</a>
+  </div>
+
+  <!-- Page iframes -->
+  <p class="section-title">📱 Page Preview</p>
+  <div class="grid">
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> / — Landing Page</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /user — เมนู</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/user" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /user/checkout — สั่งอาหาร</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/user/checkout" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /user/status — ตรวจสอบออเดอร์</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/user/status" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /admin/login — Admin Login</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/admin/login" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /admin/products — จัดการสินค้า</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/admin/products" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-label"><span class="dot"></span> /admin/orders — จัดการออเดอร์</div>
+      <div class="screen-body">
+        <iframe class="screen-iframe" src="http://localhost:3000/admin/orders" loading="lazy"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Test checklist -->
+  <p class="section-title" style="margin-top:40px">✅ Test Checklist</p>
+  <div class="checklist">
+    <div class="check-item">
+      <span class="check-icon">🏠</span>
+      <div>
+        <p class="check-title">Landing Page</p>
+        <p class="check-desc">Gradient bg, floating emoji, glass cards, hover lift</p>
+        <p class="status-manual">▶ ตรวจสอบ visual ด้านบน</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">🍔</span>
+      <div>
+        <p class="check-title">User Menu</p>
+        <p class="check-desc">Navbar back button, product grid, cart badge, cart sidebar</p>
+        <p class="status-manual">▶ ลองเพิ่มสินค้าแล้วเปิดตะกร้า</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">📋</span>
+      <div>
+        <p class="check-title">Checkout</p>
+        <p class="check-desc">Order summary, table number input, confirm button</p>
+        <p class="status-manual">▶ ลองกรอกหมายเลขโต๊ะ</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">🔍</span>
+      <div>
+        <p class="check-title">Order Status</p>
+        <p class="check-desc">Search input, animated result card, status badge</p>
+        <p class="status-manual">▶ ลองค้นหาหมายเลขออเดอร์</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">🔐</span>
+      <div>
+        <p class="check-title">Admin Login</p>
+        <p class="check-desc">Dark peach bg, glass card, back button, floating icon</p>
+        <p class="status-pass">✔ ปุ่ม "← กลับหน้าหลัก" พร้อมใช้</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">📦</span>
+      <div>
+        <p class="check-title">Admin Products</p>
+        <p class="check-desc">Table with peach hover, modal form, add/edit/delete</p>
+        <p class="status-manual">▶ Login ก่อนแล้วทดสอบ CRUD</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">🗒</span>
+      <div>
+        <p class="check-title">Admin Orders</p>
+        <p class="check-desc">Order cards, status dropdown, delete button</p>
+        <p class="status-manual">▶ ตรวจสอบหลังสั่งออเดอร์</p>
+      </div>
+    </div>
+    <div class="check-item">
+      <span class="check-icon">🔢</span>
+      <div>
+        <p class="check-title">Order ID Reuse</p>
+        <p class="check-desc">ถ้าลบออเดอร์ #1 แล้วสั่งใหม่ → ได้ #1 กลับมา</p>
+        <p class="status-pass">✔ Backend fix deployed บน Cloudflare</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Hamberger Restaurant System · Branch: <strong>update-readme</strong> · 2026
+</footer>
+
+</body>
+</html>
